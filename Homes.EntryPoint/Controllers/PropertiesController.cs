@@ -1,5 +1,7 @@
+using Homes.EntryPoint.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System;
+
 
 namespace Homes.EntryPoint.Controllers
 {
@@ -20,25 +22,18 @@ namespace Homes.EntryPoint.Controllers
         }
 
         [HttpGet("/properties")]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<Property> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 5).Select(index => new Property
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
         }
 
         [HttpPost("/properties")]
-        public WeatherForecast InsertProperty()
+        public Property InsertProperty()
         {
-            return new WeatherForecast {
-                Date = DateTime.Now,
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            };
+            return null;
         }
     }
 }
