@@ -1,24 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Homes.EntryPoint.Controllers
 {
     [ApiController]
-    [Route("/api/v1/[controller]")]
-    public class HomeListingsController : ControllerBase
+    [Route("/api/v1")]
+    public class PropertiesController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-        private readonly ILogger<HomeListingsController> _logger;
+        private readonly ILogger<PropertiesController> _logger;
 
-        public HomeListingsController(ILogger<HomeListingsController> logger)
+        public PropertiesController(ILogger<PropertiesController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet("/properties")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -28,6 +29,16 @@ namespace Homes.EntryPoint.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpPost("/properties")]
+        public WeatherForecast InsertProperty()
+        {
+            return new WeatherForecast {
+                Date = DateTime.Now,
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            };
         }
     }
 }
